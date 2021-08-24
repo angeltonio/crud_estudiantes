@@ -26,6 +26,20 @@ const gruposGet = async (req, res=response) => {
     } 
   
   
+    const gruposGetOne = async (req, res=response) => {
+  
+      const {name} = req.params
+      const grupo = 
+         await Grupo.findOne({name:name}).populate('students')
+      if(!grupo) {
+        return res.status(400).json({msg: 'El grupo con ese nombre no existe'})
+      }
+
+       res.json({
+        grupo,
+       });
+     }
+ 
   
   const gruposPost = async (req, res =response) => {
       const {name, profesor} = req.body;
@@ -57,6 +71,7 @@ const gruposGet = async (req, res=response) => {
   
     module.exports = {
        gruposGet,
+       gruposGetOne,
        gruposPut,
        gruposPost,
        gruposDelete,

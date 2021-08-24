@@ -1,8 +1,8 @@
 
 const {Router} = require('express');
 const { check } = require('express-validator');
-const { estudiantesPost, estudiantesGet, estudiantesGetName } = require('../controllers/estudiantes');
-const {existeNameEstudiante, existeGrupoPorNameAgregar } = require('../helpers/db_validators');
+const { estudiantesPost, estudiantesGet, estudiantesGetOne } = require('../controllers/estudiantes');
+const {existeNameEstudiante, existeGrupoPorID } = require('../helpers/db_validators');
 const { validarCampos } = require('../middlewares/validar-campos');
 const router = Router();
 
@@ -13,7 +13,7 @@ router.post('/add',[
     check('age', 'La edad debe ser un valor númerico').isNumeric(),
     check('sex', 'Debe ser un sexo válido - Masculino o Femenino').isIn(['Masculino', 'Femenino']), 
     check('group', 'No es un id de mongodb valido').isMongoId(),
-    // check('group').custom(existeGrupoPorNameAgregar),
+    check('group').custom(existeGrupoPorID),
     validarCampos
 
 ],estudiantesPost ); 
@@ -29,7 +29,7 @@ router.get('/', estudiantesGet);
 router.get('/:name', [
        
 ], 
-estudiantesGetName
+estudiantesGetOne
 ); 
 
 

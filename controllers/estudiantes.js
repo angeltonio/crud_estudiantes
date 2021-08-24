@@ -19,7 +19,7 @@ const estudiantesGet = async (req, res=response) => {
     }
   
 
-    const estudiantesGetName = async (req, res=response) => {
+    const estudiantesGetOne = async (req, res=response) => {
   
        const {name} = req.params
        const estudiante = 
@@ -82,6 +82,6 @@ const estudiantesGet = async (req, res=response) => {
       estudiantesPut,
       estudiantesPost,
       estudianteDelete,
-      estudiantesGetName
+      estudiantesGetOne
 
     }

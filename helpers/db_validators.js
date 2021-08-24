@@ -1,6 +1,6 @@
 const Estudiantes = require("../models/estudiantes");
 const Grupos = require("../models/grupos");
-
+const ObjectId = require('mongoose').Types.ObjectId; 
 
 
 const existeGrupoPorName = async (name) => {
@@ -23,12 +23,10 @@ const existeNameEstudiante = async (name) => {
     }
 }
 
-const existeGrupoPorNameAgregar = async (name) => {
-
-    const existegrupoporNameAgregar = await Estudiantes.findOne({name: name});
-
-    if(!existegrupoporNameAgregar) {
-        throw new Error(`No existe un grupo con el name ${name} por agregar a este estudiante`);
+const existeGrupoPorID = async (group) => {
+    const existegrupoporID = await Grupos.findById(group);
+    if(!existegrupoporID) {
+        throw new Error(`No existe un grupo con el id ${group} por lo que no se puede agregar al estudiante verique el ID del Grupo`);
 
     }
 }
@@ -39,5 +37,5 @@ const existeGrupoPorNameAgregar = async (name) => {
 module.exports = {
     existeGrupoPorName,
     existeNameEstudiante,
-    existeGrupoPorNameAgregar
+    existeGrupoPorID
 }
