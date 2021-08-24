@@ -1,8 +1,8 @@
 
 const {Router} = require('express');
 const { check } = require('express-validator');
-const { estudiantesPost, estudiantesGet, estudiantesGetName } = require('../controllers/estudiantes');
-const {existeNameEstudiante, existeGrupoPorNameAgregar } = require('../helpers/db_validators');
+const { estudiantesPost, estudiantesGet, estudiantesGetName, estudianteDelete } = require('../controllers/estudiantes');
+const {existeNameEstudiante } = require('../helpers/db_validators');
 const { validarCampos } = require('../middlewares/validar-campos');
 const router = Router();
 
@@ -31,6 +31,15 @@ router.get('/:name', [
 ], 
 estudiantesGetName
 ); 
+
+router.delete('/:name', [
+    check('name', 'El nombre  es obligatorio').not().isEmpty(),
+    validarCampos
+       
+], 
+estudianteDelete
+); 
+
 
 
 
