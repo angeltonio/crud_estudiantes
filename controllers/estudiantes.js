@@ -62,20 +62,26 @@ const estudiantesGet = async (req, res=response) => {
   
   const estudianteDelete = async (req, res=response) => {
   
-    const {id} = req.params;
-     //fisicamente adios normalmente no borro directamente de la BD lo que normalmente es cambiandole una variable state true o false
+    const {name} = req.params;
+
+    const estudiantebusqueda = await Estudiante.findOne({name:name});
+    const grupobusqueda = await Grupos.findOne(
+      { _id: ObjectId(estudiantebusqueda.group)}) 
+
+
+     //fisicamente adios normalmente no borro directamente de la BD lo que hago es cambiarle una variable state true o false
      //y de ahi es que hago las consultas a partir de ese valor si esta en true o false
-     const estudiante = await Estudiante.findByIdAndDelete(id);  
-    //change state
-    //  const estudiante = await Estudiante.findByIdAndUpdate(id, {state:false});
-    //  const usuarioAutenticado = req.usuario; 
+
+     const estudiante = await Estudiante.findByIdAndDelete(estudiantebusqueda.id);  
+
+    grupobusqueda.students.pull(estudiantebusqueda.id); 
+    grupobusqueda.save();
+
       res.json({        
         estudiante,
         // usuarioAutenticado 
       });
     }
-  
-  
   
     module.exports = {
       estudiantesGet,
