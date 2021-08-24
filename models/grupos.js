@@ -14,29 +14,11 @@ name: {
         default: ""
     },
 
-    sex: {
-        type: String,
-        default: ""
-    },
-    
-    email: {
-        type: String,
-        default: ""
-    },
-
-    city: {
-        type: String,
-        default: ""
-    },
-
     students: [{
         type: Schema.Types.ObjectId, 
         ref: 'Estudiante'
       }, 
-      
     ],
-
-
 
 });
 

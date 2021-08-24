@@ -5,7 +5,7 @@ const EstudianteSchema = Schema ({
 
 name: {
     type:String,
-    required: [true, 'El nombre es obligatorio']
+    required: [true, 'El nombre es obligatorio'],
     },
 
     age: {
@@ -15,7 +15,9 @@ name: {
 
     sex: {
         type: String,
-        default: ""
+        enum: ['Masculino', 'Femenino'],
+        default: 'Masculino'
+
     },
     
     email: {
@@ -28,13 +30,12 @@ name: {
         default: ""
     },
 
-    group: {
-        category: {
+        group: {
             type: Schema.Types.ObjectId,
             ref: 'Grupo',
             required: [true, 'El grupo es obligatorio']
         },
-    }
+    
 });
 
 
