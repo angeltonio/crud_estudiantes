@@ -17,8 +17,6 @@ const estudiantesGet = async (req, res=response) => {
         estudiantes,
       });
     }
-  
-
     const estudiantesGetOne = async (req, res=response) => {
   
        const {name} = req.params
