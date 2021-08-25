@@ -19,7 +19,7 @@ class Server {
 
    //Middlewares
 
-   this.middlewares();
+   this.middlewares() ;
 
    //Rutas
    this.routes();
@@ -34,7 +34,8 @@ class Server {
 
     middlewares(){
         //CORS
-
+    
+        this.app.use(express.static('public'));
         this.app.use(cors());
 
         //lectura y parseo del body
