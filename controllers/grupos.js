@@ -14,12 +14,23 @@ const gruposGet = async (req, res=response) => {
         grupos,
       });
     }
+
+    const gruposGetProfesores = async (req, res=response) => {
+         const profesores = await Grupo.find().select('profesor');
+         
+        res.json({
+          // resp   
+        profesores: profesores
+        });
+      }
   
   
     const gruposPut = async (req, res = response) => {
-       const {id} = req.params;
-       const {_id, ...resto} = req.body;
-       const grupo = await Grupo.findByIdAndUpdate(id, resto, {new: true});
+      const {name} = req.params;
+      const {_id,students, ...resto} = req.body;
+      const grupobusqueda = await Grupo.findOne({name:name})
+      
+      const grupo = await Grupo.findByIdAndUpdate(grupobusqueda.id, resto, {new: true});
       res.json({
         grupo               
     });
@@ -39,7 +50,6 @@ const gruposGet = async (req, res=response) => {
         grupo,
        });
      }
- 
   
   const gruposPost = async (req, res =response) => {
       const {name, profesor} = req.body;
@@ -53,17 +63,22 @@ const gruposGet = async (req, res=response) => {
   
   
   const gruposDelete = async (req, res=response) => {
+
+    console.log('entro');
   
-    const {id} = req.params;
+    const {name} = req.params;
+
+    const grupodelete = await Grupo.findOne({name:name})
      //fisicamente adios normalmente no borro directamente de la BD lo que normalmente es cambiandole una variable state true o false
      //y de ahi es que hago las consultas a partir de ese valor si esta en true o false
-     const grupos = await Grupo.findByIdAndDelete(id);  
-    //change state
-    //  const usuario = await Usuario.findByIdAndUpdate(id, {state:false});
-    //  const usuarioAutenticado = req.usuario; 
+
+     //Aqui no valide lo de eliminar el dato del 
+     //usuario porque no sabia el tiempo que tenia para entregar esto..pero es usar las funciones que 
+     //ya estan hechas o hacer otra similares..ya que cuando se consulta devuelve null
+     const grupos = await Grupo.findByIdAndDelete(grupodelete.id);  
+ 
       res.json({        
         grupos,
-        // usuarioAutenticado 
       });
     }
   
@@ -75,5 +90,6 @@ const gruposGet = async (req, res=response) => {
        gruposPut,
        gruposPost,
        gruposDelete,
+       gruposGetProfesores
 
     }
