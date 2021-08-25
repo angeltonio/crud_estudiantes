@@ -34,11 +34,12 @@ const estudiantesGet = async (req, res=response) => {
       }
   
     const estudiantesPut = async (req, res = response) => {
-       const {id} = req.params;
+       const {name} = req.params;
+       const estudiantebusqueda = await Estudiante.findOne({name:name})
        const {_id, ...resto} = req.body;
-       const estudiante = await Estudiante.findByIdAndUpdate(id, resto, {new: true});
+       const estudiante = await Estudiante.findByIdAndUpdate(estudiantebusqueda.id, resto, {new: true});
       res.json({
-          usuario               
+        estudiante               
     });
     } 
   
