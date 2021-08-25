@@ -1,8 +1,8 @@
 
 const {Router} = require('express');
 const { check } = require('express-validator');
-const { estudiantesPost, estudiantesGet, estudiantesGetName, estudianteDelete, estudiantesPut } = require('../controllers/estudiantes');
-const {existeNameEstudiante } = require('../helpers/db_validators');
+const { estudiantesPost, estudiantesGet, estudianteDelete, estudiantesPut, estudiantesGetOne } = require('../controllers/estudiantes');
+const {existeNameEstudiante, existeGrupoPorID } = require('../helpers/db_validators');
 const { validarCampos } = require('../middlewares/validar-campos');
 const router = Router();
 
