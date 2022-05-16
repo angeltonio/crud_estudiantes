@@ -7,7 +7,7 @@ const ObjectId = require('mongoose').Types.ObjectId;
 
 
 const estudiantesGet = async (req, res=response) => {
-    //se puede hacer paginacion igual, pero como era hacerlo lo mas rapido posible.....
+    //se puede hacer paginacion igual
      const [total, estudiantes] = await Promise.all([
         Estudiante.countDocuments(),
         Estudiante.find().populate('group', 'name profesor')
@@ -20,7 +20,7 @@ const estudiantesGet = async (req, res=response) => {
 
 
     const estudiantesGetCity = async (req, res=response) => {
-      //se puede hacer paginacion igual, pero como era hacerlo lo mas rapido posible.....
+      //se puede hacer paginacion igual
          const city = await Estudiante.find().select('city')
         res.json({
           city: city
